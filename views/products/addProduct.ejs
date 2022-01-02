@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<%- include('../navbar'); -%>
+<div class="container data">
+    <div class="row">
+        <form method="post" action="/products/add-product-db">
+            <div class="mb-3">
+                <label for="ASIN" class="form-label">Amazon ASIN / EAN</label>
+                <input type="text" name="asin" class="form-control" id="ASIN" aria-describedby="emailHelp">
+                <div id="ASIN" class="form-text">Thanks to add Amazon ASIN in product description</div>
+            </div>
+            <div class="mb-3">
+                <label for="VAT" class="form-label">VAT amount</label>
+                <select class="form-control" name="vat" id="VAT">
+                    <option value="1.055">5.5%</option>
+                    <option value="1.1">10%</option>
+                    <option value="1.2">20%</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Check informations!</button>
+        </form>
+    </div>
+</div>
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</html>

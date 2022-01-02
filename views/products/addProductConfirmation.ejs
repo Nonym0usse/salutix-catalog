@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<%- include('../navbar'); -%>
+<div class="container data">
+    <div class="row">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-2">Everything is correct ?</h5>
+                </div>
+            </a>
+            <% Object.entries(products).forEach(([key, value]) => { %>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1"><%= key %></h6>
+                        <p class="text-muted" id="<%= key %>" contenteditable="true"><%= value %></p>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+    </div>
+    <br>
+    <button id="mybutt" class="btn btn-danger">Save to DB </button>
+</div>
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script>
+
+    $("#mybutt").click(function(){
+        var values = [];
+        var name = [];
+        $(".text-muted").each(function(){
+            var input = $(this); // This is the jquery object of the input, do what you will
+            var dataFromInput = input.text();
+            var nameAttr = input.attr('id')
+            values.push(dataFromInput);
+            name.push(nameAttr);
+        });
+
+        setTimeout(
+            function()
+            {
+
+                var result = {};
+                name.forEach((key, i) => result[key] = values[i]);
+                $.ajax({
+                    contentType: 'application/json',
+                    type: 'POST',
+                    url: '/products/sendfinal',
+                    data: JSON.stringify(result),
+                    success: function(msg){
+                        alert('Added to DB');
+                    }
+                });
+            }, 2000);
+    });
+
+
+</script>
+</html>
