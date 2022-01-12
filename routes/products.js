@@ -28,7 +28,7 @@ if(req.method == "POST"){
                     const product  = {
                         'asin' : product_by_asin.result[0].asin,
                         'titleFR' : product_by_asin.result[0].title,
-                        'img': product_by_asin.result[0].main_image,
+                        'img': product_by_asin.result[0].main_image ? product_by_asin.result[0].main_image : "EMPTY",
                         'description': response.data.message.result.translatedText,
                         'priceShopify':  Math.round(price * 100) / 100,
                         'priceCoupang': 0.0,
@@ -44,7 +44,7 @@ if(req.method == "POST"){
                     const product  = {
                         'asin' : product_by_asin.result[0].asin,
                         'titleFR' : product_by_asin.result[0].title,
-                        'img': product_by_asin.result[0].main_image,
+                        'img': product_by_asin.result[0].main_image ? product_by_asin.result[0].main_image : "EMPTY",
                         'description': product_by_asin.result[0].description,
                         'priceShopify':  Math.round(price * 100) / 100,
                         'priceCoupang': 0.0,
