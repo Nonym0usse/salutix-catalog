@@ -25,10 +25,13 @@ if(req.method == "POST"){
             };
             axios.post('https://openapi.naver.com/v1/papago/n2mt', {'source':'fr', 'target':'ko', 'text': product_by_asin.result[0].description}, options)
                 .then(function (response) {
+                    console.log(req.body);
                     const product  = {
                         'asin' : product_by_asin.result[0].asin,
                         'titleFR' : product_by_asin.result[0].title,
                         'img': product_by_asin.result[0].main_image ? product_by_asin.result[0].main_image : "EMPTY",
+                        'img2': "EMPTY",
+                        'img3': "EMPTY",
                         'description': response.data.message.result.translatedText,
                         'priceShopify':  Math.round(price * 100) / 100,
                         'priceCoupang': 0.0,
@@ -41,11 +44,13 @@ if(req.method == "POST"){
                     res.render('products/addProductConfirmation', { title: 'Add Products - SALUTIX', products: product });
                 })
                 .catch(function (error) {
+                    console.log(req.body);
                     const product  = {
                         'asin' : product_by_asin.result[0].asin,
                         'titleFR' : product_by_asin.result[0].title,
                         'img': product_by_asin.result[0].main_image ? product_by_asin.result[0].main_image : "EMPTY",
-                        'description': product_by_asin.result[0].description,
+                        'img2': "EMPTY",
+                        'img3': "EMPTY",                        'description': product_by_asin.result[0].description,
                         'priceShopify':  Math.round(price * 100) / 100,
                         'priceCoupang': 0.0,
                         'priceNaver':  0.0,
